@@ -1,0 +1,147 @@
+<html>
+    <title>MhankBarBar APIs </title>
+    <meta name="description" content="MhankBarBar APIs Documentation.">
+<style>
+table, th, td {border: 1px solid blue; padding: 5px;}
+
+table {border-collapse: collapse;}
+
+th.eg1 {width: 21%;}
+
+th.eg2 {width: 30%;}
+
+th.eg4 {width: 5%;}
+
+th.eg3 {width: 5%;}
+</style>
+<style>
+        .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
+<head>
+        <base href="https://mhankbarbar.herokuapp.com" >
+</head>
+<script>
+                                if ('addEventListener' in window) {
+                                        window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+                                        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+                                }
+                                var div_root = document.getElementById('div_root');
+                        var snd_music = new Audio('bf.mp3');
+                        snd_music.loop = true;
+                        function pok(e) {
+                            if(snd_music.paused);
+                            snd_music.play();
+                        }
+                        div_root.addEventListener('mousedown', function(e) { pok(e); e.preventDefault(); });
+                        </script>
+  <body style="background-color:white ;" class="is-preload" id="div_root">
+  <h1 align="center">MhankBarBar APIs</h1>
+  <div align=center id="findipwidget"></div><div class="findiplink" id="findipurl">Powered by <a href="http://www.find-ip.net/" target="_blank">Find-IP.net</a></div><script defer src="//api.find-ip.net/widget.js?width=240&bg=transparent&border=transparent&city=0&language=0&system=0&textcol=black&"></script>
+  <!-- <p align="center"><iframe src="http://free.timeanddate.com/clock/i72228t0/n108/tlid38/ftb/tt0/ta1/tb1" frameborder="0" width="267" height="19" allowTransparency="true"></iframe></p> -->
+    <table>
+      <tr>
+        <th class="eg1">API</th>
+        <th class="eg2">Description</th>
+        <th class="eg4">Parameter</th>
+        <th  class="eg3">Usage</th>
+      </tr>
+     <tr>
+        <td bgcolor="green">Instagram Image/Video Downloader</td>
+        <td>Mengambil Link download dari link post Instagram.</td>
+        <td>url</td>
+        <td><a href="/api/ig?url=https://www.instagram.com/p/CFoVkHlFP3n/?igshid=sz6giw37qp9f">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="yellow">Instagram Stalker</td>
+        <td>Menampilkan jumlah foll, jumlah post, bio, dll dari akun Instagram.</td>
+        <td>username</td>
+        <td><a href="/api/stalk?username=duar_amjay">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="green">YouTube Audio Downloader</td>
+        <td>Mengambil Link download dari link YouTube.</td>
+        <td>url</td>
+        <td><a href="/api/yta?url=https://youtu.be/6l5V3BWDcMw">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="yellow">YouTube Video Downloader</td>
+        <td>Mengambil Link download dari link YouTube.</td>
+        <td>url</td>
+        <td><a href="/api/ytv?url=https://youtu.be/6l5V3BWDcMw">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="green">Jadwal Sholat sesuai Daerah</td>
+        <td>Mengambil Jadwal Sholat sesuai Daerah. Untuk melihat daerah-daerah yang tersedia, <a href="/daerah">lihat disini</a>.</td>
+        <td>daerah</td>
+        <td><a href="/api/jadwalshalat?daerah=Tangerang">Example</a></td>
+      </tr>
+      <tr>
+      	<td bgcolor="yellow">Informasi Cuaca</td>
+      	<td>Mengambil informasi cuaca sesuai tempat/daerah/lokasi.</td>
+      	<td>q</td>
+      	<td><a href="/api/cuaca?q=Tangerang">Example</a></td>
+      </tr>
+        <td bgcolor="green">Random Quotes</td>
+        <td>Mengambil kutipan kutipan dari tokoh-tokoh dunia.</td>
+        <td>-</td>
+        <td><a href="/api/randomquotes">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="yellow">Random Anime Quotes</td>
+        <td>Mengambil kutipan kutipan dari tokoh-tokoh anime.</td>
+        <td>-</td>
+        <td><a href="/api/quotesnime/random">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="green">Wikipedia.</td>
+        <td>Mencari apapun yang ada di wikipedia.</td>
+        <td>q</td>
+        <td><a href="/api/wiki?q=asu">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="yellow">Random Waifu</td>
+        <td>Mengambil Random Waifu dari mywaifulist.moe</td>
+        <td>-</td>
+        <td><a href="/api/waifu">Example</a></td>
+      </tr>
+      <tr>
+      <tr>
+      	<td bgcolor="green">Info Gempa</td>
+      	<td>Mengambil data gempa dari bmkg</td>
+      	<td>-</td>
+      	<td><a href="/api/infogempa">Example</a></td>
+      </tr>
+        <td bgcolor="yellow">Random Nekonime</td>
+        <td>Mengambil Random Nekonime</td>
+        <td>-</td>
+        <td><a href="/api/nekonime">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="green">Search Chord Guitar</td>
+        <td>Mencari chord gitar dari chordindonesia.com.</td>
+        <td>q</td>
+        <td><a href="/api/chord?q=aku+bukan+boneka">Example</a></td>
+      </tr>
+      <tr>
+        <td bgcolor="yellow">Anime searcher</td>
+        <td>Mencari info anime dari website dewabatch.com</td>
+        <td>q</td>
+        <td><a href="/api/dewabatch?q=darling+in+the+franxx">Example</a></td>
+      </tr>
+      <tr>
+      	<td bgcolor="green">Brainly scraper</td>
+      	<td>Mencari apapun di brainly</td>
+      	<td>q</td>
+      	<td><a href="/api/brainly?q=asw">Example</a></td>
+      </tr>
+    </table>
+    <div align=center><b>Total Website Visitor : </b><img src="https://www.cutercounter.com/hits.php?id=gqpxcn&style=1" border="0" alt="mhankbarbar"></img></div>
+    <p align="center">© 2020 <a href="https://wa.me/6285892766102">MhankBarBar</a>.</p>
+  </body>
+
+</html>
