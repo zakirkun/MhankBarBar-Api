@@ -18,8 +18,8 @@ apiKey = 'O8mUD3YrHIy9KM1fMRjamw8eg'
 apiKey_ocr = '09731daace88957'
 app.config['MEDIA'] = 'tts'
 app.secret_key = b'BB,^z\x90\x88?\xcf\xbb'
-ALLOWED_EXTENSION = set(['png', 'jpeg', 'jpg'])
-app.config['Layer_Folder'] = 'layer'
+#ALLOWED_EXTENSION = set(['png', 'jpeg', 'jpg'])
+#app.config['Layer_Folder'] = 'layer'
 
 def convert_size(size_bytes):
 	if size_bytes == 0:
