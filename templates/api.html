@@ -1,3 +1,11 @@
+<?php
+ $warna = "";
+ $nilai = "1234567890abcdef";
+ for($i = 0;$i <6;$i++){
+ $warna .= $nilai[rand(0,strlen($nilai) - 1)];
+ }
+
+?>
 <html>
     <title>MhankBarBar APIs </title>
     <meta name="description" content="MhankBarBar APIs Documentation.">
@@ -39,7 +47,7 @@ th.eg3 {width: 5%;}
                         }
                         div_root.addEventListener('mousedown', function(e) { pok(e); e.preventDefault(); });
                         </script>
-  <body style="background-color:white ;" class="is-preload" id="div_root">
+  <body style="background-color: #<?php echo $warna; ?>" class="is-preload" id="div_root">
   <h1 align="center">MhankBarBar APIs</h1>
   <div align=center id="findipwidget"></div><div class="findiplink" id="findipurl">Powered by <a href="http://www.find-ip.net/" target="_blank">Find-IP.net</a></div><script defer src="//api.find-ip.net/widget.js?width=240&bg=transparent&border=transparent&city=0&language=0&system=0&textcol=black&"></script>
   <!-- <p align="center"><iframe src="http://free.timeanddate.com/clock/i72228t0/n108/tlid38/ftb/tt0/ta1/tb1" frameborder="0" width="267" height="19" allowTransparency="true"></iframe></p> -->
@@ -128,17 +136,23 @@ th.eg3 {width: 5%;}
         <td><a href="/api/chord?q=aku+bukan+boneka">Example</a></td>
       </tr>
       <tr>
-        <td bgcolor="yellow">Anime searcher</td>
+        <td bgcolor="yellow">Dewabatch scraper</td>
         <td>Mencari info anime dari website dewabatch.com</td>
         <td>q</td>
         <td><a href="/api/dewabatch?q=darling+in+the+franxx">Example</a></td>
       </tr>
       <tr>
+      	<td bgcolor="green">Kusonime scraper</td>
+      	<td>Mencari info anime dari website kusonime.com</td>
+      	<td>q</td>
+      	<td><a href="/api/kuso?q=kanojo+okarishimasu">Example</a></td>
+      </tr>
+      <!--<tr>
       	<td bgcolor="green">Brainly scraper</td>
       	<td>Mencari apapun di brainly</td>
       	<td>q</td>
       	<td><a href="/api/brainly?q=asw">Example</a></td>
-      </tr>
+      </tr>-->
     </table>
     <div align=center><b>Total Website Visitor : </b><img src="https://www.cutercounter.com/hits.php?id=gqpxcn&style=1" border="0" alt="mhankbarbar"></img></div>
     <p align="center">© 2020 <a href="https://wa.me/6285892766102">MhankBarBar</a>.</p>

@@ -1,17 +1,25 @@
 #from lib.pytube import YouTube
 from lib.dewa import cari
+from lib.kuso import kuso
 from lib.brainly import *
-from googlesearch import search
+from lib.resize import *
+from lib.search import *
 from urllib.parse import *
 from flask import *
+#from werkzeug.utils import *
 from bs4 import BeautifulSoup as bs
 from requests import get, post
-import os, math, json, random, re, html_text
+import os, math, json, random, re, html_text, pytesseract, base64, time
+
+ua_ig = 'Mozilla/5.0 (Linux; Android 9; SM-A102U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.136 Mobile Safari/537.36 Instagram 155.0.0.37.107 Android (28/9; 320dpi; 720x1468; samsung; SM-A102U; a10e; exynos7885; en_US; 239490550)'
+
 app = Flask(__name__)
 apiKey = 'O8mUD3YrHIy9KM1fMRjamw8eg'
 apiKey_ocr = '09731daace88957'
 app.config['MEDIA'] = 'tts'
 app.secret_key = b'BB,^z\x90\x88?\xcf\xbb'
+ALLOWED_EXTENSION = set(['png', 'jpeg', 'jpg'])
+app.config['Layer_Folder'] = 'layer'
 
 def convert_size(size_bytes):
 	if size_bytes == 0:
@@ -22,9 +30,37 @@ def convert_size(size_bytes):
 	s = round(size_bytes / p, 2)
 	return '%s %s' % (s, size_name[i])
 
+#def allowed_file(filename):
+#    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSION
+
 @app.route('/tts/<path:filename>', methods=['GET','POST'])
 def sendTts(filename):
 	return send_from_directory(app.config['MEDIA'], filename, as_attachment=True)
+
+#@app.route('/api/layer', methods=['GET','POST'])
+#def layer():
+#	if request.args.get('base64image'):
+#		try:
+#			open('piw.jpg','wb').write(base64.b64decode(request.args.get('base64image')))
+#			time.sleep(0.4)
+#			hehe = resizeTo('piw.jpg')
+#			huhu = layer(hehe, 'black')
+#			return {
+#				'status': 200,
+#				'result': '`data:image/jpg;base64,%s`' % base64.b64encode(open('result.jpg','rb'))
+#			}
+#		except Exception as e:
+#			print(e)
+#			#os.remove('piw.jpg')
+#			return {
+#				'status': False,
+#				'error': '[!] Invalid base64 image!'
+#			}
+#	else:
+#		return {
+#			'status': False,
+#			'msg': '[!] Masukkan parameter base64image'
+#		}
 
 @app.route('/api/wiki', methods=['GET','POST'])
 def wikipedia():
@@ -188,10 +224,9 @@ def dewabatch():
 	if request.args.get('q'):
 		try:
 			q = request.args.get('q')
-			he=search('"%s" site:dewabatch.com' % q, lang='id')[0]
-			re=[]
+			he=search_dewa(quote(q))
 			dewabatch=cari(he)
-			if ('dewabatch' in he and 'google' not in he):
+			if he != '':
 				return {
 					'status': 200,
 					'sinopsis': dewabatch['result'],
@@ -210,12 +245,40 @@ def dewabatch():
 			'msg': '[!] Masukkan parameter q'
 		}
 
+@app.route('/api/kuso', methods=['GET','POST'])
+def kusonime():
+	if request.args.get('q'):
+		try:
+			q = request.args.get('q')
+			he=search_kuso(quote(q))
+			kusonime=kuso(he)
+			print(kusonime)
+			if he != '':
+				return {
+					'status': 200,
+					'sinopsis': kusonime['sinopsis'],
+					'thumb': kusonime['thumb'],
+					'info': kusonime['info'],
+					'title': kusonime['title']
+				}
+		except Exception as e:
+			print(e)
+			return {
+				'status': False,
+				'error': 'Anime %s Tidak di temukan' % unquote(q)
+			}
+	else:
+		return {
+			'status': False,
+			'msg': '[!] Masukkan parameter q'
+		}
+
 @app.route('/api/brainly', methods=['GET','POST'])
 def brainly_scraper():
 	if request.args.get('q'):
 		try:
 			query = request.args.get('q')
-			br=brainly(search('"%s" site:brainly.co.id' % quote(query), lang='id')[0])
+			br=brainly(gsearch('"%s" site:brainly.co.id' % quote(query), lang='id')[0])
 			return {
 				'status': 200,
 				'result': br
@@ -369,9 +432,12 @@ def daerah():
 	no = 1
 	hasil = ''
 	for i in daerah.split(','):
-		hasil += '%s. <b>%s</b><br>' % (no, i)
+		hasil += '%s. %s\n' % (no, i)
 		no += 1
-	return hasil
+	return {
+		'status': 200,
+		'result': hasil
+	}
 
 @app.route('/api/jadwalshalat', methods=['GET','POST'])
 def jadwalshalat():
