@@ -1,11 +1,3 @@
-<?php
- $warna = "";
- $nilai = "1234567890abcdef";
- for($i = 0;$i <6;$i++){
- $warna .= $nilai[rand(0,strlen($nilai) - 1)];
- }
-
-?>
 <html>
     <title>MhankBarBar APIs </title>
     <meta name="description" content="MhankBarBar APIs Documentation.">
@@ -23,31 +15,25 @@ th.eg4 {width: 5%;}
 th.eg3 {width: 5%;}
 </style>
 <style>
-        .center {
+.center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
 </style>
+<style>
+.hidden {
+	vissibilty: hidden;
+}
+</style>
 <head>
         <base href="https://mhankbarbar.herokuapp.com" >
 </head>
-<script>
-                                if ('addEventListener' in window) {
-                                        window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
-                                        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-                                }
-                                var div_root = document.getElementById('div_root');
-                        var snd_music = new Audio('bf.mp3');
-                        snd_music.loop = true;
-                        function pok(e) {
-                            if(snd_music.paused);
-                            snd_music.play();
-                        }
-                        div_root.addEventListener('mousedown', function(e) { pok(e); e.preventDefault(); });
-                        </script>
-  <body style="background-color: #<?php echo $warna; ?>" class="is-preload" id="div_root">
+  <audio>
+          <source src="/static", filename="Best.mp3">
+  </audio>
+  <body style="background-color: white" class="is-preload" id="div_root">
   <h1 align="center">MhankBarBar APIs</h1>
   <div align=center id="findipwidget"></div><div class="findiplink" id="findipurl">Powered by <a href="http://www.find-ip.net/" target="_blank">Find-IP.net</a></div><script defer src="//api.find-ip.net/widget.js?width=240&bg=transparent&border=transparent&city=0&language=0&system=0&textcol=black&"></script>
   <!-- <p align="center"><iframe src="http://free.timeanddate.com/clock/i72228t0/n108/tlid38/ftb/tt0/ta1/tb1" frameborder="0" width="267" height="19" allowTransparency="true"></iframe></p> -->
@@ -56,7 +42,7 @@ th.eg3 {width: 5%;}
         <th class="eg1">API</th>
         <th class="eg2">Description</th>
         <th class="eg4">Parameter</th>
-        <th  class="eg3">Usage</th>
+        <th class="eg3">Usage</th>
       </tr>
      <tr>
         <td bgcolor="green">Instagram Image/Video Downloader</td>
@@ -147,6 +133,30 @@ th.eg3 {width: 5%;}
       	<td>q</td>
       	<td><a href="/api/kuso?q=kanojo+okarishimasu">Example</a></td>
       </tr>
+      <tr>
+      	<td bgcolor="yellow">Otakudesu scraper</td>
+      	<td>Mencari info anime dari website otakudesu.tv</td>
+      	<td>q</td>
+      	<td><a href="/api/otakudesu?q=kanojo+okarishimasu">Example</a></td>
+   	  </tr>
+   	  <tr>
+   	  	<td bgcolor="green">Spam es em es</td>
+   	  	<td>Mengirim spam OTP sms</td>
+   	  	<td>no&jum</td>
+   	  	<td><a href="/api/spamsms?no=085812345678&jum=3">Example</a></td>
+   	  </tr>
+   	  <tr>
+   	  	<td bgcolor="yellow">Komiku scraper</td>
+   	  	<td>Mencari info manga dari website komiku.co.id</td>
+   	  	<td>q</td>
+   	  	<td><a href="/api/komiku?q=kanojo+okarishimasu">Example</a></td>
+   	  </tr>
+   	  <tr>
+   	  	<td bgcolor="green">Spam call</td>
+   	  	<td>Mengirim spam OTP call</td>
+   	  	<td>no</td>
+   	  	<td><a href="/api/spamcall?no=85671568291">Example</a></td>
+   	  </tr>
       <!--<tr>
       	<td bgcolor="green">Brainly scraper</td>
       	<td>Mencari apapun di brainly</td>

