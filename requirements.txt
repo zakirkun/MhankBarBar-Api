@@ -6,7 +6,7 @@ bs4==0.0.1
 certifi==2020.6.20
 chardet==3.0.4
 click==7.1.2
-Flask==1.1.2
+Flask==2.3.2
 googlesearch-python==2020.0.2
 html-text==0.5.2
 idna==2.10
